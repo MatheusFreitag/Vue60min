@@ -62,10 +62,12 @@
                         qntd: 1
                     }) 
                 }
+                this.$parent.$emit('atualizaCarrinho', this.carrinho);
+                
             },
         },
         created: function(){
-            this.$http.get('https://gateway.marvel.com/v1/public/comics?ts=1&apikey=4007f76057e3d86cc24a29c011b602b6&hash=def3b12836eb0da8878505663bb7c54a')
+            this.$http.get('https://gateway.marvel.com/v1/public/comics?hasDigitalIssue=true&ts=1&apikey=4007f76057e3d86cc24a29c011b602b6&hash=def3b12836eb0da8878505663bb7c54a')
             .then(function(response){
                 this.comics = response.data.data.results
             })

@@ -6,15 +6,14 @@
 </template>
 
 <script>
-import Test from './components/Test'
-
-import Navbar from './components/Navbar'
-export default {
-  name: 'App',
-  components: {
-    Navbar
+  import Test from './components/Test'
+  import Navbar from './components/Navbar'
+  export default {
+    name: 'App',
+    components: {
+      Navbar
+    }
   }
-}
 </script>
 
 <style>
