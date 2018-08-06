@@ -1,11 +1,11 @@
-<template v-on:atualizaCarrinho="trocaCarrinho(novoCarrinho)">
+<template>
   <div class="page-container md-layout-column" >
     <md-toolbar class="md-primary">
       
-      <span class="md-title">{{carrinho}}</span>
+      <span class="md-title">Comic Store</span>
 
       <div class="md-toolbar-section-end">
-        <md-button @click="showSidepanel = true">Carrinho</md-button>
+        <md-button @click="showSidepanel = true">Carrinho <span class="numItems">{{numItems}}</span></md-button>
       </div>
     </md-toolbar>
 
@@ -14,20 +14,20 @@
         <span class="md-title">Carrinho</span>
       </md-toolbar>
 
-      <div v-for="item in carrinho">
-        <md-list>
+      <md-list>
+        <span v-for="item in carrinho"  v-bind:key="item.title">
           <md-list-item>
-            <span class="md-list-item-text">{{item}}</span>
-            <md-button class="md-icon-button md-list-action">
-              <md-icon class="md-primary">X</md-icon>
-            </md-button>
+            <span>{{item.title}}</span>
+            <span class="qntd">{{item.qntd}}</span>
           </md-list-item>
-        </md-list>
-      </div>
+          <hr>
+        </span>
+
+      </md-list>
     </md-drawer>
 
     <md-content>
-      <comics></comics>
+      <comics v-on:atualizaCarrinho="trocaCarrinho"></comics>
     </md-content>
   </div>
 </template>
@@ -39,7 +39,9 @@
     data: () => ({
       showNavigation: false,
       showSidepanel: false,
-      carrinho: []
+      menuVisible: false,
+      carrinho: [],
+      numItems: 0
     }),
     components: {
         Comics
@@ -47,13 +49,17 @@
     methods :{
       trocaCarrinho: function(novoCarrinho){
         this.carrinho = novoCarrinho;
+        this.numItems += 1;
       }
+    },
+    created: ()=>{
+      this.carrinho = []
     }
   }
 </script>
 
-<style  scoped>
-   .page-container {
+<style lang="scss" scoped>
+  .page-container {
     min-height: 300px;
     overflow: hidden;
     position: relative;
@@ -61,12 +67,29 @@
   }
 
   .md-drawer {
-    width: 230px;
-    max-width: calc(100vw - 125px);
+    width: 630px;
+    max-width: calc(100vw - 635px);
   }
 
   .md-content {
     padding: 16px;
   }
- 
+  
+  .qntd{
+    background: pink;
+    padding: 5px 11px;
+    border-radius: 50%;
+  }
+  
+  .numItems{
+    background: white;
+    padding: 5px 9px;
+    border-radius: 50%;
+    color: gray;
+  }
+  
+  hr{
+    width: 90%;
+    opacity: .2;
+  }
 </style>
